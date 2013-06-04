@@ -21,6 +21,19 @@
  *
  */
 
+struct btd_attribute;
+
 void btd_gatt_service_manager_init(void);
 
 void btd_gatt_service_manager_cleanup(void);
+
+/* btd_gatt_add_service - Add a service declaration to local attribute database.
+ * @uuid:	Service UUID.
+ * @primary:	Set to 'true' if this is a primary services. Otherwise, it will
+ *		be declared as a secondary service.
+ *
+ *
+ * Returns a reference to service declaration attribute. In case of error,
+ * NULL is returned.
+ */
+struct btd_attribute *btd_gatt_add_service(bt_uuid_t *uuid, bool primary);
