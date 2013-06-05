@@ -55,6 +55,7 @@
 #include "dbus-common.h"
 #include "agent.h"
 #include "profile.h"
+#include "attrib/gattrib.h"
 #include "gatt.h"
 #include "systemd.h"
 
