@@ -351,6 +351,17 @@ void btd_gatt_read_attribute(struct btd_attribute *attr,
 		result(GATT_SUCCESS, attr->value, attr->value_len, user_data);
 }
 
+void btd_gatt_write_attribute(struct btd_attribute *attr, uint8_t *value,
+						size_t len, uint16_t offset,
+						btd_attr_write_result_t result,
+						void *user_data)
+{
+	if (attr->write_cb)
+		attr->write_cb(value, len, offset, result, user_data);
+	else
+		result(ATT_ECODE_WRITE_NOT_PERM, user_data);
+}
+
 static struct characteristic *new_characteristic(const char *path,
 							const char *uuid)
 {
