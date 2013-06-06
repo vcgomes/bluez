@@ -341,6 +341,16 @@ struct btd_attribute *btd_gatt_get_char_value(GList *database,
 	return list->data;
 }
 
+void btd_gatt_read_attribute(struct btd_attribute *attr,
+						btd_attr_read_result_t result,
+						void *user_data)
+{
+	if (attr->read_cb)
+		attr->read_cb(result, user_data);
+	else
+		result(GATT_SUCCESS, attr->value, attr->value_len, user_data);
+}
+
 static struct characteristic *new_characteristic(const char *path,
 							const char *uuid)
 {
