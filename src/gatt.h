@@ -35,6 +35,8 @@ typedef void (*btd_attr_write_t) (uint8_t *value, size_t len, uint16_t offset,
 					btd_attr_write_result_t result,
 					void *user_data);
 
+typedef void (*btd_attr_value_t) (uint8_t *value, size_t len, void *user_data);
+
 void btd_gatt_service_manager_init(void);
 
 void btd_gatt_service_manager_cleanup(void);
@@ -151,4 +153,13 @@ void btd_gatt_read_attribute(struct btd_attribute *attr,
 void btd_gatt_write_attribute(struct btd_attribute *attr, uint8_t *value,
 						size_t len, uint16_t offset,
 						btd_attr_write_result_t result,
+						void *user_data);
+
+/* btd_gatt_add_notifier - Add a notifier to an attribute.
+ * @attr:	Target attribute.
+ * @value_cb:	Callback function to be called when notify.
+ * @user_data:	Data to be passed to the value_cb callback function.
+ */
+unsigned int btd_gatt_add_notifier(struct btd_attribute *attr,
+						btd_attr_value_t value_cb,
 						void *user_data);
